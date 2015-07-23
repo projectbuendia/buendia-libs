@@ -10,12 +10,10 @@
 # OR CONDITIONS OF ANY KIND, either express or implied.  See the License for
 # specific language governing permissions and limitations under the License.
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: install-modules [Maven bin directory]"
-    echo "For example: install-modules /opt/omrssdk-1.0.7/apache-maven/bin"
-    exit 1
-fi
+# Installs the OpenMRS modules in this directory into the local Maven repo.
 
-maven=$1/mvn
-$maven install:install-file -DgroupId=org.openmrs.module -DartifactId=xforms -Dversion=4.3.1 -Dpackaging=jar -Dfile=xforms-4.3.1.jar
-$maven install:install-file -DgroupId=org.openmrs.module -DartifactId=xforms-api -Dversion=4.3.1 -Dpackaging=jar -Dfile=xforms-api-4.3.1.jar
+set -e
+cd  $(dirname $0)
+
+mvn install:install-file -DgroupId=org.openmrs.module -DartifactId=xforms -Dversion=4.3.1 -Dpackaging=jar -Dfile=xforms-4.3.1.jar
+mvn install:install-file -DgroupId=org.openmrs.module -DartifactId=xforms-api -Dversion=4.3.1 -Dpackaging=jar -Dfile=xforms-api-4.3.1.jar
